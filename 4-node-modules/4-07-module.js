@@ -6,7 +6,10 @@
  *
  *  add:
  *  ```
- *  "type": "module"
+ *  {
+ *    "type": "module"
+ *  }
+ *
  *  ```
  */
 import { getCount, increase } from "./4-07-counter.js";
