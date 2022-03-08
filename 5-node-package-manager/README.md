@@ -50,3 +50,12 @@ $ npm init
   "homepage": "https://github.com/paolochang/edc-node-atoz#readme"
 }
 ```
+
+## 5.3 Software License
+
+License에 따른 복제, 배포, 수정의 권한 및 저작권, 법적 책임 등
+
+### Reference
+
+- [SPDX License List](https://spdx.org/licenses/)
+- [OLIS 오픈소스 SW 라이선스 종합정보시스템](https://www.olis.or.kr/license/Detailselect.do?lType=spdx&lId=1074)
