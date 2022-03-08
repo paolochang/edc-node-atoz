@@ -4,8 +4,7 @@
 
 ### Initialize default `package.json`
 
-```
-bash
+```bash
 $ npm init --yes
 ```
 
