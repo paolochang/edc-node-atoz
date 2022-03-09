@@ -78,6 +78,13 @@ $ npm list -g
 $ npm list -g --dept=0
 ```
 
+Note: 보안, 안전상의 이유로 global package 설치시 `sudo` (관리자권한)으로 설치하지 않는것이 좋다.
+만약 package 설치시 권한으로 인한 문제가 생기면 아래와 같이 시도해 볼 수 있다.
+
+```
+$ sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+```
+
 ### Reference
 
 - [SPDX License List](https://spdx.org/licenses/)
