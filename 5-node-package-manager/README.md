@@ -53,7 +53,30 @@ $ npm init
 
 ## 5.3 Software License
 
-License에 따른 복제, 배포, 수정의 권한 및 저작권, 법적 책임 등
+각 License에 따라 복제, 배포, 수정의 권한 및 저작권, 법적 책임 등을 내포하고있다.
+
+## 5.5 Install Node Module
+
+1. Install node package
+
+```bash
+# aliases: install, i, add
+# options: -g: install global
+$ npm install <package>
+$ npm install <package>@<tag>
+$ npm install <package>@<version>
+$ npm install <package>@<version range>
+$ npm install <github url>
+```
+
+2. Check list
+
+```bash
+# aliases: list, la, ll
+$ npm list -h
+$ npm list -g
+$ npm list -g --dept=0
+```
 
 ### Reference
 
