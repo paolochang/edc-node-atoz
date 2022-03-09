@@ -85,6 +85,51 @@ Note: 보안, 안전상의 이유로 global package 설치시 `sudo` (관리자�
 $ sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
 ```
 
+## 5.6 Manage libraries
+
+Check package information and install package
+
+```bash
+$ npm view underscore
+$ npm install underscore
+```
+
+`package.json`파일의 `dependencies`에 `underscore`가 생긴것을 볼 수 있다. `package-lock.json`은 개발자가 어떤 버젼을 사용했는지 기록되있는 파일로 개발자가 임의로 수정할 일은 없다.
+
+```json
+{
+  "name": "edc-node-atoz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paolochang/edc-node-atoz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paolochang/edc-node-atoz/issues"
+  },
+  "homepage": "https://github.com/paolochang/edc-node-atoz#readme",
+  "dependencies": {
+    "underscore": "^1.13.2"
+  }
+}
+```
+
+Delete node package
+
+```bash
+# aliases: uninstall, un
+$ npm uninstall underscore
+```
+
 ### Reference
 
 - [SPDX License List](https://spdx.org/licenses/)

@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/paolochang/edc-node-atoz/issues"
   },
-  "homepage": "https://github.com/paolochang/edc-node-atoz#readme"
+  "homepage": "https://github.com/paolochang/edc-node-atoz#readme",
+  "dependencies": {
+    "underscore": "^1.13.2"
+  }
 }
