@@ -19,3 +19,32 @@ Defining the problem
 - interactive debugging,
 - memory dumps,
 - profiling
+
+## Interactive Debugging
+
+1. Add `Breakpoint`
+
+2. Click `Debug` tap (⇧⌘D)
+
+3. Clcik `Run and Debug`
+
+<img src="/assets/debugging-icons.png" width="200px" title="Debugging Icons" alt="Debugging Icons"></img><br/>
+
+- Continue (F5): 다음 `Breakpoint`로 이동
+- Step Over (F10): 다음줄로 이동 (함수 수행 O 호출 X)
+- Step Into (F11): 함수 호출
+- Step Out (⇧F11): 함수 나오기
+- Restart (⇧⌘F5): `Debugger` 다시시작
+- Stop (⇧F5): `Debuger` 끝내기
+
+4. `CALL STACK`
+
+어느 위치에서 함수가 호출되는지 연쇠적으로 보여준다.
+
+5. `VARIABLES`
+
+현재 실행하는 코드에서의 변수값을 보여준다.
+
+6. `WATCH`
+
+내가 확인하고자 하는 값을 지정 할 수 있다.
