@@ -130,6 +130,15 @@ Delete node package
 $ npm uninstall underscore
 ```
 
+## 5.7 Update libraries
+
+```bash
+# check any outdated libraries
+$ npm outdated
+# update <package>
+$ npm update <package>
+```
+
 ### Reference
 
 - [SPDX License List](https://spdx.org/licenses/)
