@@ -139,6 +139,44 @@ $ npm outdated
 $ npm update <package>
 ```
 
+## 5.8 Development dependencies
+
+개발할때 필요한 `library`의 경우 일반 `library`와 혼합되는 것을 방지하고자 `devDependencies`라는 곳에 따로 정리하여 사용하는데 `devDependencies`를 지정하고 사용하는 방법을 알아보자.
+
+```bash
+$ npm install nodemon --save-dev
+```
+
+```json
+{
+  "name": "edc-node-atoz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paolochang/edc-node-atoz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paolochang/edc-node-atoz/issues"
+  },
+  "homepage": "https://github.com/paolochang/edc-node-atoz#readme",
+  "dependencies": {
+    "underscore": "^1.13.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
+```
+
 ### Reference
 
 - [SPDX License List](https://spdx.org/licenses/)
