@@ -78,3 +78,9 @@ Defining the problem
     ]
   }
   ```
+
+  - `nodemon` 에러 발생시 `nodemon`을 글로벌로 재설치해서 테스트한다.
+
+    ```bash
+    $ npm i -g nodemon
+    ```
