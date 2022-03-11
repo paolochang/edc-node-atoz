@@ -1,7 +1,15 @@
 const fs = require("fs");
+const os = require("os");
+const path = require("path");
 
-const dirpath = __dirname;
-const dirname = process.argv[2];
+const arguments = process.argv;
+if (!arguments[2]) {
+  console.error(`ERROR: Please pass the name of the folder as a argument`);
+  return;
+}
+const dirname = arguments[2];
+const dirpath = path.join(os.homedir(), "Pictures");
+const workingDir = path.join(os.homedir(), "Pictures", dirname);
 
 function createDirectories() {
   if (!fs.existsSync(`./${dirname}/videos`)) {
@@ -63,6 +71,10 @@ function readFiles(directory) {
   });
 }
 
-console.log(`Processing in ${dirpath}/${dirname}...`);
-createDirectories();
-readFiles(dirname);
+if (!fs.existsSync(workingDir)) {
+  console.error(`ERROR: "${dirname}" is not found in "${dirpath}"`);
+  return;
+}
+console.log(`Processing in ${workingDir}...`);
+// createDirectories();
+// readFiles(dirname);
