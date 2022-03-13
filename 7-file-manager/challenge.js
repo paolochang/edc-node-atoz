@@ -10,30 +10,35 @@ if (!arguments[2]) {
 const dirname = arguments[2];
 const dirpath = path.join(os.homedir(), "Pictures");
 const workingDir = path.join(os.homedir(), "Pictures", dirname);
+const videosDir = path.join(workingDir, "videos");
+const capturedDir = path.join(workingDir, "captured");
+const originalDir = path.join(workingDir, "original");
 
 function createDirectories() {
-  if (!fs.existsSync(`./${dirname}/videos`)) {
-    fs.mkdirSync(`./${dirname}/videos`);
-    console.log("CREATED:", `./${dirname}/videos`);
+  if (!fs.existsSync(videosDir)) {
+    fs.mkdirSync(videosDir);
+    console.log("CREATED:", videosDir);
   }
-  if (!fs.existsSync(`./${dirname}/captured`)) {
-    fs.mkdirSync(`./${dirname}/captured`);
-    console.log("CREATED:", `./${dirname}/captured`);
+  if (!fs.existsSync(capturedDir)) {
+    fs.mkdirSync(capturedDir);
+    console.log("CREATED:", capturedDir);
   }
-  if (!fs.existsSync(`./${dirname}/original`)) {
-    fs.mkdirSync(`./${dirname}/original`);
-    console.log("CREATED:", `./${dirname}/original`);
+  if (!fs.existsSync(originalDir)) {
+    fs.mkdirSync(originalDir);
+    console.log("CREATED:", originalDir);
   }
 }
 
-function moveFile(oldpath, newpath) {
-  fs.rename(oldpath, newpath, (error) => {
-    if (!error) {
-      const dir = newpath.split("/")[2];
-      const file = newpath.split("/")[3];
-      console.log(`move ${file} to ${dir}`);
-    } else console.error("ERROR:", error);
-  });
+function moveFile(newpath, filename) {
+  fs.rename(
+    path.join(workingDir, filename),
+    path.join(newpath, filename),
+    (error) => {
+      if (!error) {
+        console.log(`move ${filename} to ${newpath}`);
+      } else console.error("ERROR:", error);
+    }
+  );
 }
 
 function organizeFiles(filename) {
@@ -41,19 +46,16 @@ function organizeFiles(filename) {
   switch (ext[1]) {
     case "mp4":
     case "mov":
-      moveFile(`./${dirname}/${filename}`, `./${dirname}/videos/${filename}`);
+      moveFile(videosDir, filename);
       break;
     case "png":
     case "aae":
-      moveFile(`./${dirname}/${filename}`, `./${dirname}/captured/${filename}`);
+      moveFile(capturedDir, filename);
       break;
     case "jpg":
       const fileNumber = ext[0].split("_")[1];
       if (fileNumber.charAt(0) === "E") {
-        moveFile(
-          `./${dirname}/${filename.replace("E", "")}`,
-          `./${dirname}/original/${filename.replace("E", "")}`
-        );
+        moveFile(originalDir, filename.replace("E", ""));
       }
       break;
     default:
@@ -61,10 +63,10 @@ function organizeFiles(filename) {
   }
 }
 
-function readFiles(directory) {
-  fs.readdir(directory, (err, files) => {
+function readFiles(path) {
+  fs.readdir(path, (err, files) => {
     if (!err) {
-      files.forEach((file) => organizeFiles(file));
+      files.forEach(organizeFiles);
     } else {
       console.log(err);
     }
@@ -76,5 +78,5 @@ if (!fs.existsSync(workingDir)) {
   return;
 }
 console.log(`Processing in ${workingDir}...`);
-// createDirectories();
-// readFiles(dirname);
+createDirectories();
+readFiles(workingDir);
