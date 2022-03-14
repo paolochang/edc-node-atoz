@@ -116,9 +116,50 @@
 
 - (\*1) Only if freshness information is included
 
+## HTTP Headers
+
+### HTTP 특징
+
+1. Stateless Protocol:
+   `Server`에 요청하는 개별적 `request`는 서로 연관되어져 있지 않으며 `request` 그대로의 data를 가지고 있어야 한다.
+2. `Sessions` & `Cookies`:
+   Stateless Protocol에서 사용자가 로그인 되 있다는 것을 알 수 있는 방법으로 `Sessions`과 `Cookies`가 사용된다. 예전에는 `client`가 `server`에 로그인 요청시, `server`는 `client`에게 로그인에 필요한 정보를 포함한 `headers`를 보내주게 된다. `cookies`는 `browser`에서 잠시 보관하고 있는 저장소의 역할을 하며 `headers`에 로그인에 필요한 정보를 포함하고 있으면 `browser`가 자동으로 `cookies`에 저장을 해준다. 다음 `request`에 똑같은 `cookies`를 `headers`에 넣어서 `server`에 보낸다. `request body`는 Stateless로 로그인 되어 있는 정보가 없지만 `headers` 안에 정보를 포함하고 있다.
+   예)
+   ```
+   auth_token=xxx...
+   ```
+   `headers` 안에는 `User-Agent`가 존제하는데, 이는 `browswer`와 운영체재에 대한 정보를 가지고 있다.
+3. Standard Headers, Custom Headers
+
+   - Standard: Authorization (o)
+   - Custom: x-auth (x)
+
+   `Cookie`에 `authentication` 정보를 포함 할때, 상황에 맞고 의미있는 `header`를 사용한다. 이미 `Authorization`이라는 `header`가 존재하기 때문에 `x-auth` 혹은 이외의 이름을 붙여 따로 저장하는 방법을 사용 할 수는 있지만 가장 이상적인 방법은 아니다.
+
+### HTTP Headers Categories
+
+- Authentication
+
+  - Authorization
+
+- Caching
+
+  - Cache-Control
+  - Expires
+
+- Message body information
+
+  - Content-Length
+  - Content-Type
+  - Content-Language
+
+- CORS
+
 ## Reference:
 
 - [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 - [HTTP response status codes 한국어](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
 - [HTTP request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 - [HTTP request methods 한국어](https://developer.mozilla.org/ko/docs/Web/HTTP/Methods)
+- [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+- [HTTP headers 한국어](https://developer.mozilla.org/ko/docs/Web/HTTP/Headers)
