@@ -1,6 +1,6 @@
-# HTTP/HTTPs
+# HTTP
 
-## Definition
+## HTTP/HTTPs
 
 ### `HTTP`: Hypertext Transfer Protocol (1989)
 
@@ -33,3 +33,44 @@
 - 현재 개발이 진행중이며, `HTTPs`만 동작하며 대부분의 브라우져에서 지원하지 않는다.
 - TCP 기반으로 만들어진 기존의 `HTTP`와는 다르게 UDP를 기반으로 개선하고 있다.
 - `HTTP v2`와 크게 다르지 않는다.
+
+## STATUS CODES
+
+### `1XX`: Information
+
+- 100: Continue
+- 102: Processing
+
+### `2XX`: Successful
+
+- 200: OK
+- 201: Created
+- 204: No Content
+
+### `3XX`: Redirection
+
+- 301: Moved Permanently
+- 302: Found
+- 303: See Other (GET 요청에서만 사용가능)
+- 307: Temporary Redirect
+- 308: Permanent Redirect
+
+### `4XX`: Client Error
+
+- 400: Bad Request
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not Found
+- 405: Method Not Allowed
+- 409: Conflict
+
+### `5XX`: Server Error
+
+- 500: Internal Server Error
+- 502: Bad Gateway
+- 503: Service Unavailable
+
+## Reference:
+
+- [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+- [HTTP response status codes 한국어](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
