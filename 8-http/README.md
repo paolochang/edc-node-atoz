@@ -70,7 +70,55 @@
 - 502: Bad Gateway
 - 503: Service Unavailable
 
+## Request Methods
+
+- `URL` (Uniform Resource Locator) can be used on `web pages (http)`, `file transfer (ftp)`, `email (mailto)`, and `database (jdbc)`
+
+- <protocal>://<hostname>:<port>/<pathname>?<query>
+
+- `port`는 생략 가능
+
+### Request Methods 종류
+
+- GET: get
+- POST: create
+- PUT: replace
+- DELETE: delete
+- PATCH: replace partially
+- HEAD: get without body
+- OPTIONS: all supported methods for URL
+- TRACE: echoes the received request
+
+### 서버의 resource를 변경하지 않고 읽어올때
+
+- GET
+- HEAD
+- OPTIONS
+- TRACE
+
+### 서버의 데이터를 변경하는 Request Methods
+
+- POST
+- PUT
+- DELETE
+- PATCH
+
+### Request Methods Table
+
+|                              | GET | POST  | PUT | DELETE | PATCH | HEAD | OPTIONS | TRACE |
+| ---------------------------- | --- | ----- | --- | ------ | ----- | ---- | ------- | ----- |
+| Request has body             | No  | Yes   | Yes | May    | Yes   | No   | No      | No    |
+| Successful response has body | Yes | Yes   | No  | May    | Yes   | No   | Yes     | No    |
+| Safe                         | Yes | No    | No  | No     | No    | Yes  | Yes     | Yes   |
+| Idempotent                   | Yes | No    | Yes | Yes    | No    | Yes  | Yes     | Yes   |
+| Cacheable                    | Yes | (\*1) | No  | No     | No    | Yes  | No      | No    |
+| Allowed in HTML forms        | Yes | Yes   | No  | No     | No    | No   | No      | No    |
+
+- (\*1) Only if freshness information is included
+
 ## Reference:
 
 - [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 - [HTTP response status codes 한국어](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
+- [HTTP request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
+- [HTTP request methods 한국어](https://developer.mozilla.org/ko/docs/Web/HTTP/Methods)
