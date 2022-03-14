@@ -74,7 +74,7 @@
 
 - `URL` (Uniform Resource Locator) can be used on `web pages (http)`, `file transfer (ftp)`, `email (mailto)`, and `database (jdbc)`
 
-- <protocal>://<hostname>:<port>/<pathname>?<query>
+- &lt;protocal&gt;://&lt;hostname&gt;:&lt;port&gt;/&lt;pathname&gt;?&lt;query&gt;
 
 - `port`는 생략 가능
 
