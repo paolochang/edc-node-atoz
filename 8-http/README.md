@@ -134,6 +134,8 @@
    - Standard: Authorization (o)
    - Custom: x-auth (x)
 
+   `Cookie`에 `authentication` 정보를 포함 할때, 상황에 맞고 의미있는 `header`를 사용한다. 이미 `Authorization`이라는 `header`가 존재하기 때문에 `x-auth` 혹은 이외의 이름을 붙여 따로 저장하는 방법을 사용 할 수는 있지만 가장 이상적인 방법은 아니다.
+
 ### HTTP Headers Categories
 
 - Authentication
