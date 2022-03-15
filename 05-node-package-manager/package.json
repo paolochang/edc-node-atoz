@@ -1,0 +1,27 @@
+{
+  "name": "edc-node-atoz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paolochang/edc-node-atoz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paolochang/edc-node-atoz/issues"
+  },
+  "homepage": "https://github.com/paolochang/edc-node-atoz#readme",
+  "dependencies": {
+    "underscore": "^1.13.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
