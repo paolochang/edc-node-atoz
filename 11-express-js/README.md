@@ -50,3 +50,7 @@ app.get("/"); // root <- path가 동일시 res.send() 보내고 뒤의 middlewar
 app.get("/posts"); // posts
 app.use(error); // handle error
 ```
+
+## Reference
+
+- [Express Documentation](https://expressjs.com/en/4x/api.html)
