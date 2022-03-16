@@ -58,6 +58,7 @@
   - Use Cases
   - HTTP Request Example
   - Parameters / Filters
+  - Code Samples
   - Response Example
 
 ### YouTube
@@ -72,3 +73,19 @@
   - list
   - insert
   - delete
+
+### GitHub
+
+- Pulls
+  - HTTP Request Example
+    ```
+    GET: /repos/{owner}/{repo}/pulls
+    ```
+  - Parameters
+  - Code Samples
+  - Response Example
+
+## Reference
+
+- [YouTube Data API: Videos / List](https://developers.google.com/youtube/v3/docs/videos/list)
+- [GitHub Docs REST API](https://developer.github.com/v3/)
