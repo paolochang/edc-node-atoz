@@ -1,3 +1,4 @@
 09-node-server/node_modules
 11-express-js/node_modules
-12-twitter/node_modules
+12-twitter/client/node_modules
+12-twitter/server/node_modules
