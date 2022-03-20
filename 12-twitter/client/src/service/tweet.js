@@ -23,7 +23,6 @@ export default class TweetService {
       body: JSON.stringify({ text, username: "ellie", name: "Ellie" }),
     });
     const data = await response.json();
-    console.log(data);
     if (response.status !== 201) {
       throw new Error(data.message);
     }
