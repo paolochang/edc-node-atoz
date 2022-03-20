@@ -1,10 +1,11 @@
 import express from "express";
+import "express-async-errors";
 
 const route = express.Router();
 
-const tweets = [
+let tweets = [
   {
-    id: 1,
+    id: "1",
     message: "드림코딩에서 강의 들으면 너무 좋으다",
     createdAt: "2021-05-09T04:20:57.000Z",
     name: "Bob",
@@ -13,70 +14,61 @@ const tweets = [
   },
 ];
 
-// GET
+// GET `/tweets`
+// GET `/tweets?username=:username`
 route.get("/", (req, res) => {
-  if (req.query.username) {
-    const filtered = tweets.filter(
-      (obj) => obj.username === req.query.username
-    );
-    res.status(200).json(filtered);
-  } else {
-    res.status(200).json(tweets);
-  }
+  const username = req.query.username;
+  const data = username
+    ? tweets.filter((tweet) => tweet.username === username)
+    : tweets;
+  res.status(200).json(data);
 });
 
+// GET `/tweets/:id`
 route.get("/:id", (req, res) => {
-  if (req.params.id) {
-    const found = tweets.filter((obj) => obj.id === +req.params.id);
-    if (found) res.status(200).json(found);
-    else res.status(204).json({ message: "Tweet not found." });
+  const id = req.params.id;
+  const tweet = tweets.find((tweet) => tweet.id === id);
+  if (tweet) {
+    res.status(200).json(tweet);
   } else {
-    res.status(404).json({ message: "Tweet not found" });
+    res.send(404).json({ message: `Tweet id(${id}) not found` });
   }
 });
 
-// POST
+// POST `/tweets`
 route.post("/", (req, res) => {
-  const body = req.body;
+  const { message, name, username } = req.body;
   // save to memory or database
-  if (body) {
-    const newTweet = {
-      id: tweets.length + 1,
-      message: body.message,
-      createdAt: new Date(),
-      name: body.name,
-      username: body.username,
-      url: "",
-    };
-    tweets.push(newTweet);
-    res.status(201).json(newTweet);
+  const newTweet = {
+    id: Date.now().toString(),
+    message,
+    createdAt: new Date(),
+    name,
+    username,
+    url: "",
+  };
+  tweets = [newTweet, ...tweets];
+  res.status(201).json(newTweet);
+});
+
+// PUT `/tweets`
+route.put("/:id", (req, res) => {
+  const id = req.params.id;
+  const { message } = req.body;
+  const edited = tweets.find((tweet) => tweet.id === id);
+  if (edited) {
+    edited.message = message;
+    res.status(201).json(edited);
   } else {
-    res.status(500).json({ message: "Tweet cannot be created" });
+    res.status(404).json({ message: `Tweet id(${id}) not found` });
   }
 });
 
-// PUT
-route.put("/:id", (req, res) => {
-  const body = req.body;
-  if (req.params.id) {
-    const index = tweets.findIndex((tweet) => tweet.id === +req.params.id);
-    tweets[index] = {
-      ...tweets[index],
-      message: body.message,
-    };
-    res.status(201).json(tweets[index]);
-  } else res.status(500).json({ message: "Tweet id is not found" });
-});
-
-// DELETE
+// DELETE `/tweets`
 route.delete("/:id", (req, res) => {
-  if (req.params.id) {
-    tweets.splice(
-      tweets.findIndex((obj) => obj.id === +req.params.id),
-      1
-    );
-    res.status(204).json({ message: "Tweet is successfully deleted" });
-  } else res.status(500).json({ message: "Tweet id is not found" });
+  const id = req.params.id;
+  tweets = tweets.filter((tweet) => tweet.id !== id);
+  res.sendStatus(204);
 });
 
 export default route;
