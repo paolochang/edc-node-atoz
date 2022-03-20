@@ -6,7 +6,7 @@ const route = express.Router();
 let tweets = [
   {
     id: "1",
-    message: "드림코딩에서 강의 들으면 너무 좋으다",
+    text: "드림코딩에서 강의 들으면 너무 좋으다",
     createdAt: "2021-05-09T04:20:57.000Z",
     name: "Bob",
     username: "bob",
@@ -37,11 +37,11 @@ route.get("/:id", (req, res) => {
 
 // POST `/tweets`
 route.post("/", (req, res) => {
-  const { message, name, username } = req.body;
+  const { text, name, username } = req.body;
   // save to memory or database
   const newTweet = {
     id: Date.now().toString(),
-    message,
+    text,
     createdAt: new Date(),
     name,
     username,
@@ -54,10 +54,10 @@ route.post("/", (req, res) => {
 // PUT `/tweets`
 route.put("/:id", (req, res) => {
   const id = req.params.id;
-  const { message } = req.body;
+  const { text } = req.body;
   const edited = tweets.find((tweet) => tweet.id === id);
   if (edited) {
-    edited.message = message;
+    edited.text = text;
     res.status(201).json(edited);
   } else {
     res.status(404).json({ message: `Tweet id(${id}) not found` });
