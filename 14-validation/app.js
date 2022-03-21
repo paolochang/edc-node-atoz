@@ -34,7 +34,10 @@ app.post(
 
 app.get(
   "/:email",
-  [param("email").isEmail().withMessage("E-mail is required"), validate],
+  [
+    param("email").isEmail().withMessage("E-mail is required").normalizeEmail(),
+    validate,
+  ],
   (req, res, next) => {
     res.send("💌");
   }
