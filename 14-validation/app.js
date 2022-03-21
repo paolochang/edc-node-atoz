@@ -16,12 +16,13 @@ app.post(
   "/users",
   [
     body("name")
+      .trim()
       .notEmpty()
       .withMessage("Name is required")
       .isLength({ min: 2 })
       .withMessage("Name must be longer than 2 letters"),
     body("age").isInt().withMessage("Age is required"),
-    body("email").isEmail().withMessage("E-mail is required"),
+    body("email").isEmail().withMessage("E-mail is required").normalizeEmail(),
     body("job.name").notEmpty(),
     validate,
   ],
@@ -33,7 +34,10 @@ app.post(
 
 app.get(
   "/:email",
-  [param("email").isEmail().withMessage("E-mail is required"), validate],
+  [
+    param("email").isEmail().withMessage("E-mail is required").normalizeEmail(),
+    validate,
+  ],
   (req, res, next) => {
     res.send("💌");
   }
