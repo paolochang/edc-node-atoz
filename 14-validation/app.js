@@ -16,13 +16,12 @@ app.post(
   "/users",
   [
     body("name")
-      .trim()
       .notEmpty()
       .withMessage("Name is required")
       .isLength({ min: 2 })
       .withMessage("Name must be longer than 2 letters"),
     body("age").isInt().withMessage("Age is required"),
-    body("email").isEmail().withMessage("E-mail is required").normalizeEmail(),
+    body("email").isEmail().withMessage("E-mail is required"),
     body("job.name").notEmpty(),
     validate,
   ],
