@@ -50,3 +50,7 @@
   - `10`: Cost factor (2^10 ==> 1,024 rounds)
   - `N9qo8uLOickgx2ZMRZoMye`: 16바이트(128비트) 솔트, base64-encoded to 22 characters
   - `IjZAgcfl7p92ldGxad68LJZdL17lhWy`: 24바이트(192비트) 해시, base64-encoded to 31 characters
+
+## Reference
+
+- [JWT](https://jwt.io/)
