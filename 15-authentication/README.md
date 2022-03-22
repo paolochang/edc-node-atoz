@@ -21,7 +21,7 @@
 
 ## JSON Web Token (JWT)
 
-<img src="/assets/jwt.png" width="600px" title="Session Cookies" alt="Session Cookies"></img><br/>
+<img src="/assets/jwt.png" width="600px" title="JWT" alt="JWT"></img><br/>
 
 ### PROS
 
@@ -35,6 +35,8 @@
 ## bcrypt
 
 `bcrypt`는 단방향의 암호화 알고리즘을 사용한 해쉬 함수로 기존의 비밀번호를 `salt`와 함께 해쉬화하여 암호화된 비밀번호를 `database`에 저장한다.
+
+<img src="/assets/bcrypt.png" width="600px" title="bcrypt" alt="bcrypt"></img><br/>
 
 - 예
 
