@@ -31,3 +31,20 @@
 ### CONS
 
 - `secret key` 노출시 보안에 대한 위협
+
+## bcrypt
+
+`bcrypt`는 단방향의 암호화 알고리즘을 사용한 해쉬 함수로 기존의 비밀번호를 `salt`와 함께 해쉬화하여 암호화된 비밀번호를 `database`에 저장한다.
+
+- 예
+
+  ```
+  $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
+  \/ \/ \____________________/\_____________________________/
+  Alg Cost       Salt                        Hash
+  ```
+
+  - `2a`: 해쉬 알고리즘 식별자 (bcrypt)
+  - `10`: Cost factor (2^10 ==> 1,024 rounds)
+  - `N9qo8uLOickgx2ZMRZoMye`: 16바이트(128비트) 솔트, base64-encoded to 22 characters
+  - `IjZAgcfl7p92ldGxad68LJZdL17lhWy`: 24바이트(192비트) 해시, base64-encoded to 31 characters
