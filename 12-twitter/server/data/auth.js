@@ -9,7 +9,7 @@ let users = [
     password: "$2b$10$B.2YwNIW1QbT/F6rdz94/O8LHELP1OPLvPYtDouct6waV69gxU.Ze",
     name: "Bobby",
     email: "bobby@gmail.com",
-    url: null,
+    url: "",
   },
 ];
 

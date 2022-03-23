@@ -40,8 +40,8 @@ export async function signin(req, res) {
   res.status(200).json({ token, username });
 }
 
-function createJwtToken(userId) {
-  return jwt.sign({ userId }, JWT_SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
+function createJwtToken(id) {
+  return jwt.sign({ id }, JWT_SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
 }
 
 export async function me(req, res) {
