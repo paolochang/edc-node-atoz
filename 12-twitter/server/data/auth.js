@@ -1,14 +1,26 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-let users = [];
+// abcd1234: $2b$10$B.2YwNIW1QbT/F6rdz94/O8LHELP1OPLvPYtDouct6waV69gxU.Ze
+let users = [
+  {
+    id: "1",
+    username: "bobby",
+    password: "$2b$10$B.2YwNIW1QbT/F6rdz94/O8LHELP1OPLvPYtDouct6waV69gxU.Ze",
+    name: "Bobby",
+    email: "bobby@gmail.com",
+    url: null,
+  },
+];
 
-export function create(user) {
-  users.push(user);
+export async function create(user) {
+  const newUser = { ...user, id: Date.now().toString() };
+  users.push(newUser);
+  return newUser.id;
 }
 
-export function find(user) {
-  return users.find((u) => u.username === user.username);
+export function findByUsername(username) {
+  return users.find((u) => u.username === username);
 }
 
 export function getMe() {}

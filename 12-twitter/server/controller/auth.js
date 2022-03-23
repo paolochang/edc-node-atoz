@@ -1,33 +1,53 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-import * as authRepository from "../data/auth.js";
+import * as userRepository from "../data/auth.js";
 
-const secret = "0sPLH8GNr8ppieCC9NmA0SSMcWBHYWke";
+const jwtSecretKey = "0sPLH8GNr8ppieCC9NmA0SSMcWBHYWke";
+const jwtExpireIn = "2d";
+const bcryptSaltRounds = 10;
 
-export function signup(req, res) {
-  const user = req.body;
-  const hashed = bcrypt.hashSync(user.password, 10);
-  user.password = hashed;
-  authRepository.create(user);
-  const token = jwt.sign({ username: user.username }, secret);
-  return res.status(201).json(token);
-}
-
-export function signin(req, res) {
-  const user = req.body;
-  const found = authRepository.find(user);
-  const matched = bcrypt.compareSync(user.password, found.password);
-  const token = jwt.sign({ username: user.username }, secret);
-  if (matched) return res.status(200).json(token);
-  else return res.status(404).json({ message: `Password is not matched` });
-}
-
-export function me(req, res) {
-  console.log(req.headers.authorization);
-  jwt.verify(req.headers.authorization, secret, (error, decoded) => {
-    console.log(decoded);
+export async function signup(req, res) {
+  const { username, password, name, email, url } = req.body;
+  const found = await userRepository.findByUsername(username);
+  if (found) {
+    return res.status(409).json({ message: `${username} already exists` });
+  }
+  const hashed = bcrypt.hashSync(password, bcryptSaltRounds);
+  const userId = await userRepository.create({
+    username,
+    password: hashed,
+    name,
+    email,
+    url,
   });
-  authRepository.getUser();
-  res.status(200);
+  const token = createJwtToken(userId);
+  return res.status(201).json({ token, username });
 }
+
+export async function signin(req, res) {
+  const { username, password } = req.body;
+  const user = userRepository.findByUsername(username);
+  if (!user) {
+    return res.status(401).json({ message: `Invalid user or password` });
+  }
+  const isValid = await bcrypt.compare(password, user.password);
+  if (!isValid) {
+    return res.status(401).json({ message: `Invalid user or password` });
+  }
+  const token = createJwtToken(user.id);
+  res.status(200).json({ token, username });
+}
+
+function createJwtToken(userId) {
+  return jwt.sign({ userId }, jwtSecretKey, { expiresIn: jwtExpireIn });
+}
+
+// export function me(req, res) {
+//   console.log(req.headers.authorization);
+//   jwt.verify(req.headers.authorization, secret, (error, decoded) => {
+//     console.log(decoded);
+//   });
+//   userRepository.getUser();
+//   res.status(200);
+// }
