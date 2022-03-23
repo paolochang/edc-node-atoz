@@ -4,6 +4,7 @@ import "express-async-errors";
 
 import * as tweetController from "../controller/tweet.js";
 import { validate } from "../middleware/validator.js";
+import { isAuth } from "../middleware/auth.js";
 
 const route = express.Router();
 
@@ -17,10 +18,10 @@ const validateTweet = [
   validate,
 ];
 
-route.get("/", tweetController.getTweets);
-route.get("/:id", tweetController.getTweet);
-route.post("/", validateTweet, tweetController.create);
-route.put("/:id", validateTweet, tweetController.update);
-route.delete("/:id", tweetController.remove);
+route.get("/", isAuth, tweetController.getTweets);
+route.get("/:id", isAuth, tweetController.getTweet);
+route.post("/", isAuth, validateTweet, tweetController.create);
+route.put("/:id", isAuth, validateTweet, tweetController.update);
+route.delete("/:id", isAuth, tweetController.remove);
 
 export default route;

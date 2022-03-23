@@ -19,8 +19,10 @@ export async function create(user) {
   return newUser.id;
 }
 
-export function findByUsername(username) {
+export async function findByUsername(username) {
   return users.find((u) => u.username === username);
 }
 
-export function getMe() {}
+export async function findById(id) {
+  return users.find((u) => u.id === id);
+}

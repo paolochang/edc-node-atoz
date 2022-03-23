@@ -2,10 +2,11 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 import * as userRepository from "../data/auth.js";
-
-const jwtSecretKey = "0sPLH8GNr8ppieCC9NmA0SSMcWBHYWke";
-const jwtExpireIn = "2d";
-const bcryptSaltRounds = 10;
+import {
+  BCRYPT_SALT_ROUNDS,
+  JWT_EXPIRES_IN,
+  JWT_SECRET_KEY,
+} from "../constants.js";
 
 export async function signup(req, res) {
   const { username, password, name, email, url } = req.body;
@@ -13,7 +14,7 @@ export async function signup(req, res) {
   if (found) {
     return res.status(409).json({ message: `${username} already exists` });
   }
-  const hashed = bcrypt.hashSync(password, bcryptSaltRounds);
+  const hashed = bcrypt.hashSync(password, BCRYPT_SALT_ROUNDS);
   const userId = await userRepository.create({
     username,
     password: hashed,
@@ -27,7 +28,7 @@ export async function signup(req, res) {
 
 export async function signin(req, res) {
   const { username, password } = req.body;
-  const user = userRepository.findByUsername(username);
+  const user = await userRepository.findByUsername(username);
   if (!user) {
     return res.status(401).json({ message: `Invalid user or password` });
   }
@@ -40,14 +41,11 @@ export async function signin(req, res) {
 }
 
 function createJwtToken(userId) {
-  return jwt.sign({ userId }, jwtSecretKey, { expiresIn: jwtExpireIn });
+  return jwt.sign({ userId }, JWT_SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
 }
 
-// export function me(req, res) {
-//   console.log(req.headers.authorization);
-//   jwt.verify(req.headers.authorization, secret, (error, decoded) => {
-//     console.log(decoded);
-//   });
-//   userRepository.getUser();
-//   res.status(200);
-// }
+export async function me(req, res) {
+  const user = await userRepository.findById(req.userId);
+  if (!user) return res.status(404).json({ message: "User not found" });
+  res.status(200).json({ token: req.token, username: user.username });
+}
