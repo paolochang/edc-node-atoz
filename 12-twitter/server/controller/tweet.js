@@ -28,16 +28,26 @@ export async function create(req, res) {
 export async function update(req, res) {
   const id = req.params.id;
   const { text } = req.body;
+  const tweet = await tweetRepository.getById(id);
+  if (!tweet)
+    return res.status(404).json({ message: `Tweet id(${id}) is not found` });
+  if (tweet.userId !== req.userId)
+    return res
+      .status(403)
+      .json({ message: `Updating tweet id(${id}) is forbidden` });
   const edited = await tweetRepository.update(id, text);
-  if (edited) {
-    res.status(201).json(edited);
-  } else {
-    res.status(404).json({ message: `Tweet id(${id}) not found` });
-  }
+  res.status(200).json(edited);
 }
 
 export async function remove(req, res) {
   const id = req.params.id;
+  const tweet = await tweetRepository.getById(id);
+  if (!tweet)
+    return res.status(404).json({ message: `Tweet id(${id}) is not found` });
+  if (tweet.userId !== req.userId)
+    return res
+      .status(403)
+      .json({ message: `Deleting tweet id(${id}) is forbidden` });
   await tweetRepository.remove(id);
   res.sendStatus(204);
 }
