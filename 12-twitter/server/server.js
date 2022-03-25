@@ -6,6 +6,7 @@ import "express-async-errors";
 
 import authRouter from "./router/auth.js";
 import tweetRouter from "./router/tweet.js";
+import { config } from "./config.js";
 
 const app = express();
 
@@ -26,4 +27,4 @@ app.use((err, req, res, next) => {
   res.sendStatus(500);
 });
 
-app.listen(8080);
+app.listen(config.host.port);
