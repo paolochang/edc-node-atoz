@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import * as userRepository from "../data/auth.js";
 import {
   BCRYPT_SALT_ROUNDS,
-  JWT_EXPIRES_IN,
+  JWT_EXPIRES_DAYS,
   JWT_SECRET_KEY,
 } from "../constants.js";
 
@@ -41,7 +41,7 @@ export async function signin(req, res) {
 }
 
 function createJwtToken(id) {
-  return jwt.sign({ id }, JWT_SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
+  return jwt.sign({ id }, JWT_SECRET_KEY, { expiresIn: JWT_EXPIRES_DAYS });
 }
 
 export async function me(req, res) {
