@@ -11,6 +11,14 @@ let users = [
     email: "bobby@gmail.com",
     url: "",
   },
+  {
+    id: "2",
+    username: "ellie",
+    password: "$2b$10$B.2YwNIW1QbT/F6rdz94/O8LHELP1OPLvPYtDouct6waV69gxU.Ze",
+    name: "Ellie",
+    email: "ellie@gmail.com",
+    url: "",
+  },
 ];
 
 export async function create(user) {
