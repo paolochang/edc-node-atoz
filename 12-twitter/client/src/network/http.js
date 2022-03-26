@@ -18,9 +18,9 @@ export default class HttpClient {
     } catch (err) {
       console.error(err);
     }
-
     if (res.status > 299 || res.status < 200) {
-      const message = data.message ? data.message : "Something went wrong. 🧐";
+      const message =
+        data && data.message ? data.message : "Something went wrong. 🧐";
       const error = new Error(message);
       if (res.status === 401) {
         this.authErrorEventBus.notify(error);
