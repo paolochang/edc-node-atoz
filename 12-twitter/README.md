@@ -16,7 +16,7 @@
   }
   ```
 
-- `server/connection.js`에서
+- `server/connection/socket.js`에서
 
   ```js
 
@@ -57,7 +57,7 @@
   }
   ```
 
-- `server/connection.js`에서
+- `server/connection/socket.js`에서
 
   ```js
 
