@@ -9,6 +9,7 @@ class Socket {
         origin: "*",
       },
     });
+
     this.io.use((socket, next) => {
       const token = socket.handshake.auth.token;
       if (!token) {
@@ -21,6 +22,7 @@ class Socket {
         next();
       });
     });
+
     this.io.on("connection", (socket) => {
       console.log("Socket client is connected");
     });
