@@ -10,13 +10,10 @@
   export default class Socket {
     constructor(baseURL, getAccessToken) {
       this.io = socket(baseURL, {
-        auth: (callback) => callback({ token: getAccessToken() }),
+        auth: (callback) => callback({ token: getAccessToken() }), // <- auth 사용시
       });
     }
   }
-
-  /** token 을 auth 에 받아올 때 socket 에서 표준적으로 정해진 auth 를 사용해야 한다 **/
-  const token = socket.handshake.auth.token;
   ```
 
 - `server/connection.js`에서
@@ -54,13 +51,10 @@
   export default class Socket {
     constructor(baseURL, getAccessToken) {
       this.io = socket(baseURL, {
-        query: { token: getAccessToken() },
+        query: { token: getAccessToken() }, // <- query 사용시
       });
     }
   }
-
-  /** token 을 auth 에 받아올 때 socket 에서 표준적으로 정해진 auth 를 사용해야 한다 **/
-  const token = socket.handshake.auth.token;
   ```
 
 - `server/connection.js`에서
