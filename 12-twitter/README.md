@@ -70,7 +70,7 @@
         const token = socket.handshake.query && socket.handshake.query.token
         /**
          *  문제점: browser console 및 log 에 token 이 노출됨
-        */
+         */
         if (!token) {
           return next(new Error("Authentication error"));
         }
