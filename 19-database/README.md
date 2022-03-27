@@ -6,11 +6,11 @@
 
 - Plain file with rows of records (csv)
 
-### PROS:
+##### PROS:
 
 - simple data
 
-### CONS:
+##### CONS:
 
 - inflexible
 - inefficient
@@ -20,14 +20,14 @@
 
 - Software package to define, create, maintain, and control access to the database
 
-### PROPS:
+##### PROS:
 
 - Optimised for data storage & retrieval
 - handles complex data
 - concurrent access
 - data security
 
-### CONS:
+##### CONS:
 
 - complex itself
 
