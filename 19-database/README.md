@@ -76,6 +76,26 @@
   - Each document is `self-contained`
   - `Data duplication` instead of relation
 
+#### SQL vs NoSQL
+
+|                        | SQL         | NoSQL              |
+| ---------------------- | ----------- | ------------------ |
+| Getting started        | Medium      | Easy               |
+| Data structure         | Rigid/Fixed | undefined/Flexible |
+| Data lookup            | Easy        | Easy               |
+| Aggregate Queries      | Easy        | Difficult          |
+| Slicing & Dicing Data  | Easy        | Difficult          |
+| Scaling for High Input | Difficult   | Easy               |
+| Running cost           | Costly      | cheap              |
+
+1. The type of data in question
+2. The amount of data
+3. How data will be queried
+
+#### Hybrid approach
+
+- Choose a database appropriate for particular problem: works very well with Microservice architecture
+
 ### ORM & ODM
 
 #### Object Relational Mapping (ORM)
