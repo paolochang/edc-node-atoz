@@ -75,3 +75,28 @@
   - Document structure is not enforced by DB
   - Each document is `self-contained`
   - `Data duplication` instead of relation
+
+### ORM & ODM
+
+#### Object Relational Mapping (ORM)
+
+1. Run the code
+2. Creates database table
+3. Creates the records
+
+##### PROS:
+
+- Business logic
+- No boilerplate code
+- Database Abstraction
+- Schema migration
+
+##### CONS:
+
+- Suboptimal queries
+- SQL Knowledge
+- Complex Queries
+
+#### Object Document Mapper (ODM)
+
+- mongoose
