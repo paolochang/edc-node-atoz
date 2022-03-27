@@ -56,7 +56,22 @@
 
 #### NoSQL
 
-- Key-value
-- Document
-- Wide-column
-- Graph
+- Don't have rigid, strict schema (schema-less)
+- Non-relational, hence cluster-friendly
+- Address specific problems or use cases
+
+##### Types
+
+- Key-value store
+- Document store
+- Wide-column store
+- Graph database
+
+##### Examples
+
+- **mongoDB (Document database)**
+  - Primary unit of data is a `document`
+  - Documents organised in `collections`
+  - Document structure is not enforced by DB
+  - Each document is `self-contained`
+  - `Data duplication` instead of relation
