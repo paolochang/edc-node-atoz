@@ -30,7 +30,7 @@ app.use((err, req, res, next) => {
 });
 
 db.getConnection().then((connection) => {
-  console.log(connection);
+  console.log("Database is connected");
 });
 
 const server = app.listen(config.host.port);
