@@ -1,77 +1,63 @@
-import SQ from "sequelize";
-import { sequelize } from "../db/database.js";
-import { User } from "./auth.js";
+import * as userRepository from "./auth.js";
 
-const DataTypes = SQ.DataTypes;
-const Sequelize = SQ.Sequelize;
-
-const Tweet = sequelize.define("tweet", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true,
+let tweets = [
+  {
+    id: "1",
+    text: "드림코딩에서 강의 들으면 너무 좋으다",
+    createdAt: new Date().toString(),
+    userId: "1",
   },
-  text: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-});
-Tweet.belongsTo(User);
-
-const INCLUDE_USER = {
-  attributes: [
-    "id",
-    "text",
-    "createdAt",
-    "userId",
-    [Sequelize.col("user.name"), "name"],
-    [Sequelize.col("user.username"), "username"],
-    [Sequelize.col("user.url"), "url"],
-  ],
-  include: {
-    model: User,
-    attributes: [],
-  },
-};
-const ORDER_DESC = { order: [["createdAt", "DESC"]] };
+  // {
+  //   id: "2",
+  //   text: "안녕?",
+  //   createdAt: new Date().toString(),
+  //   userId: "1",
+  // },
+];
 
 export async function getAll() {
-  return Tweet.findAll({ ...INCLUDE_USER, ...ORDER_DESC });
-}
-
-export async function getAllByUsername(username) {
-  return Tweet.findAll({
-    ...INCLUDE_USER,
-    ...ORDER_DESC,
-    include: {
-      ...INCLUDE_USER.include,
-      where: { username },
-    },
-  });
-}
-
-export async function getById(id) {
-  return Tweet.findOne({ where: { id }, ...INCLUDE_USER });
-}
-
-export async function create(text, userId) {
-  return Tweet.create({ text, userId }).then((data) =>
-    this.getById(data.dataValues.id)
+  return Promise.all(
+    tweets.map(async (tweet) => {
+      const { username, name, url } = await userRepository.findById(
+        tweet.userId
+      );
+      return { ...tweet, username, name, url };
+    })
   );
 }
 
-export async function update(id, text) {
-  return Tweet.findByPk(id, INCLUDE_USER) //
-    .then((tweet) => {
-      tweet.text = text;
-      return tweet.save();
-    });
+export async function getAllByUsername(username) {
+  return getAll().then((tweets) =>
+    tweets.filter((tweet) => tweet.username === username)
+  );
 }
 
-export async function remove(id) {
-  return Tweet.findByPk(id, INCLUDE_USER) //
-    .then((tweet) => {
-      tweet.destroy();
-    });
+export async function getById(tweetId) {
+  const found = tweets.find((tweet) => tweet.id === tweetId);
+  if (!found) {
+    return null;
+  }
+  const { username, name, url } = await userRepository.findById(found.userId);
+  return { ...found, username, name, url };
+}
+
+export async function create(text, userId) {
+  const newTweet = {
+    id: Date.now().toString(),
+    text,
+    createdAt: new Date(),
+    userId,
+  };
+  tweets = [newTweet, ...tweets];
+  return getById(newTweet.id);
+}
+
+export async function update(id, text) {
+  const tweet = tweets.find((tweet) => tweet.id === id);
+  if (tweet) tweet.text = text;
+  return getById(tweet.id);
+}
+
+export async function remove(tweetId) {
+  tweets = tweets.filter((tweet) => tweet.id !== tweetId);
 }
