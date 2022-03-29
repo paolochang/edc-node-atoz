@@ -1,33 +1,26 @@
-// abcd1234: $2b$10$B.2YwNIW1QbT/F6rdz94/O8LHELP1OPLvPYtDouct6waV69gxU.Ze
-let users = [
-  {
-    id: "1",
-    username: "bobby",
-    password: "$2b$10$B.2YwNIW1QbT/F6rdz94/O8LHELP1OPLvPYtDouct6waV69gxU.Ze",
-    name: "Bobby",
-    email: "bobby@gmail.com",
-    url: "",
-  },
-  {
-    id: "2",
-    username: "ellie",
-    password: "$2b$10$B.2YwNIW1QbT/F6rdz94/O8LHELP1OPLvPYtDouct6waV69gxU.Ze",
-    name: "Ellie",
-    email: "ellie@gmail.com",
-    url: "",
-  },
-];
+import MongoDb from "mongodb";
+import { getUsers } from "../db/database.js";
+
+const ObjectId = MongoDb.ObjectId;
 
 export async function create(user) {
-  const newUser = { ...user, id: Date.now().toString() };
-  users.push(newUser);
-  return newUser.id;
+  return getUsers()
+    .insertOne(user)
+    .then((data) => data.insertedId.toString());
 }
 
 export async function findByUsername(username) {
-  return users.find((u) => u.username === username);
+  return getUsers()
+    .findOne({ username }) //
+    .then(mapOptionalUser);
 }
 
 export async function findById(id) {
-  return users.find((u) => u.id === id);
+  return getUsers()
+    .findOne({ _id: new ObjectId(id) })
+    .then(mapOptionalUser);
+}
+
+function mapOptionalUser(user) {
+  return user ? { ...user, id: user._id } : user;
 }
