@@ -1,14 +1,12 @@
-import MongoDB from "mongodb";
+import Mongoose from "mongoose";
 import { config } from "../config.js";
 
-let db;
-
 export async function connectDB() {
-  return MongoDB.MongoClient.connect(config.db.host).then((client) => {
-    db = client.db();
-  });
+  return Mongoose.connect(config.db.host);
 }
 
+// TODO: Delete below
+let db;
 export function getUsers() {
   return db.collection("users");
 }
