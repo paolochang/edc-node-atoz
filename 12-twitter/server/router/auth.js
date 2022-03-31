@@ -32,6 +32,7 @@ const validateSignup = [
 
 route.post("/signup", validateSignup, authController.signup);
 route.post("/signin", validateCredential, authController.signin);
+route.post("/logout", authController.logout);
 route.get("/me", isAuth, authController.me);
 
 export default route;
