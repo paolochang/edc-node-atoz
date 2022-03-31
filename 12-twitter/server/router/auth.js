@@ -5,7 +5,7 @@ import * as authController from "../controller/auth.js";
 import { isAuth } from "../middleware/auth.js";
 import { validate } from "../middleware/validator.js";
 
-const route = express.Router();
+const router = express.Router();
 
 const validateCredential = [
   body("username")
@@ -30,9 +30,10 @@ const validateSignup = [
     .optional({ nullable: true, checkFalsy: true }),
 ];
 
-route.post("/signup", validateSignup, authController.signup);
-route.post("/signin", validateCredential, authController.signin);
-route.post("/logout", authController.logout);
-route.get("/me", isAuth, authController.me);
+router.post("/signup", validateSignup, authController.signup);
+router.post("/signin", validateCredential, authController.signin);
+router.post("/logout", authController.logout);
+router.get("/me", isAuth, authController.me);
+router.get("/twitter-csrf-token", authController.csrfToken);
 
-export default route;
+export default router;

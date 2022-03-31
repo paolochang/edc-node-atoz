@@ -26,4 +26,7 @@ export const config = {
   db: {
     host: required("DB_HOST"),
   },
+  csrf: {
+    plainToken: required("CSRF_SECRET_KEY"),
+  },
 };
