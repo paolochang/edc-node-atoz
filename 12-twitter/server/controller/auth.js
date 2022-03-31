@@ -38,6 +38,11 @@ export async function signin(req, res) {
   res.status(200).json({ token, username });
 }
 
+export async function logout(req, res) {
+  res.cookie("token", "");
+  res.status(200).json({ message: "User has been logged out" });
+}
+
 function createJwtToken(id) {
   return jwt.sign({ id }, config.jwt.secretKey, {
     expiresIn: config.jwt.expiresDays, // in milliseconds
