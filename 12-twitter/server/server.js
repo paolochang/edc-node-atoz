@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 import "express-async-errors";
 
 import authRouter from "./router/auth.js";
@@ -12,9 +13,16 @@ import { connectDB } from "./db/database.js";
 
 const app = express();
 
+const corsOption = {
+  origin: [config.cors.allowdOrigin],
+  optionsSuccessStatus: 200,
+  credentials: true, // allow the Access-Control-Allow-Credentials
+};
+
 app.use(express.json());
+app.use(cookieParser());
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOption));
 app.use(morgan("tiny"));
 
 app.use("/auth", authRouter);
