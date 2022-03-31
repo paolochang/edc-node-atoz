@@ -34,6 +34,6 @@ router.post("/signup", validateSignup, authController.signup);
 router.post("/signin", validateCredential, authController.signin);
 router.post("/logout", authController.logout);
 router.get("/me", isAuth, authController.me);
-router.get("/twitter-csrf-token", authController.csrfToken);
+router.get("/csrf-token", authController.csrfToken);
 
 export default router;
