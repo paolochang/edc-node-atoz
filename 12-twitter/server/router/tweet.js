@@ -6,7 +6,7 @@ import * as tweetController from "../controller/tweet.js";
 import { validate } from "../middleware/validator.js";
 import { isAuth } from "../middleware/auth.js";
 
-const route = express.Router();
+const router = express.Router();
 
 // validation & sanitization
 // Contract Testing: Client-Server, Proto-Base
@@ -18,10 +18,10 @@ const validateTweet = [
   validate,
 ];
 
-route.get("/", isAuth, tweetController.getTweets);
-route.get("/:id", isAuth, tweetController.getTweet);
-route.post("/", isAuth, validateTweet, tweetController.create);
-route.put("/:id", isAuth, validateTweet, tweetController.update);
-route.delete("/:id", isAuth, tweetController.remove);
+router.get("/", isAuth, tweetController.getTweets);
+router.get("/:id", isAuth, tweetController.getTweet);
+router.post("/", isAuth, validateTweet, tweetController.create);
+router.put("/:id", isAuth, validateTweet, tweetController.update);
+router.delete("/:id", isAuth, tweetController.remove);
 
-export default route;
+export default router;

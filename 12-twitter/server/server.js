@@ -10,6 +10,7 @@ import tweetRouter from "./router/tweet.js";
 import { config } from "./config.js";
 import { initSocket } from "./connection/socket.js";
 import { connectDB } from "./db/database.js";
+import { csrfCheck } from "./middleware/csrf.js";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(helmet());
 app.use(cors(corsOption));
 app.use(morgan("tiny"));
 
+app.use(csrfCheck);
 app.use("/auth", authRouter);
 app.use("/tweets", tweetRouter);
 
@@ -39,6 +41,7 @@ app.use((err, req, res, next) => {
 
 connectDB()
   .then(() => {
+    console.log("database is connected");
     const server = app.listen(config.host.port);
     initSocket(server);
   })
