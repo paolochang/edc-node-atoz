@@ -20,6 +20,10 @@ export const config = {
   cors: {
     allowdOrigin: required("CORS_ALLOWED_ORIGIN"),
   },
+  rateLimit: {
+    windowMs: required("RATE_LIMIT_WINDOWMS"),
+    max: required("RATE_LIMIT_MAX"),
+  },
   host: {
     port: parseInt(required("HOST_PORT", 8080)),
   },

@@ -11,6 +11,7 @@ import { config } from "./config.js";
 import { initSocket } from "./connection/socket.js";
 import { connectDB } from "./db/database.js";
 import { csrfCheck } from "./middleware/csrf.js";
+import rateLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
 
@@ -25,8 +26,9 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(cors(corsOption));
 app.use(morgan("tiny"));
+app.use(rateLimiter);
 
-app.use(csrfCheck);
+// app.use(csrfCheck);
 app.use("/auth", authRouter);
 app.use("/tweets", tweetRouter);
 
