@@ -15,3 +15,10 @@
 
 - `429` Too Many Requests
 - Add `Retry-After: 3600` to headers
+
+## Algorithms
+
+1. Fixed window
+2. Sliding window
+3. Leaky bucket
+4. token bucket
