@@ -12,6 +12,35 @@
 - Swagger Specification 2.0
 - Swagger Tools
 
+## Approaches to OpenAPI
+
+1. `Code First` a.k.a "bottoms up"
+   - `Traditional` approach to API development
+   - API definition is generated from the source code
+   - PROS:
+     - Faster API implementation
+     - Good starting point for existing projects
+   - CONS:
+     - API definition is scattered across the code
+     - Focuses on the implementation not API design
+2. `Design First` a.k.a "top down"
+   - Relatively new approach to API development
+   - API definition document is the single source of truth
+   - PROS:
+     - API definition is one source of truth
+     - Early collaboration and feedback
+     - Focus on API design yields better APIs
+   - CONS:
+     - Takes longer to develop and deliver the API
+   - How to implement in node environment
+     1. Using `Codegen`: `openapi-generator`
+        - No clear separation between generated code and hand-written handlers
+        - Cannot selectively use individual parts (validator, router)
+     2. Using `Middleware`: `express-openapi-validator`
+        - Express middleware
+        - Validates request parameters and responses
+        - Includes constomisable router
+
 ## Reference
 
 - [Swagger Tools](https://swagger.io/)
