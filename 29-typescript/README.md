@@ -21,3 +21,27 @@
    ```
    $ tsc --init
    ```
+
+## Implement with Nodemon
+
+1.  Install `concurrently` and `nodemon` as development dependencies
+
+    ```
+    $ npm i --save-dev concurrently nodemon
+    ```
+
+2.  Apply `concurrently` and `nodemon` on `package.json`
+
+    ```json
+    {
+      (...)
+      "scripts": {
+        "start": "concurrently \"tsc -w\" \"nodemon dist/main\"",
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "devDependencies": {
+        "concurrently": "^7.1.0",
+        "nodemon": "^2.0.15"
+      },
+    }
+    ```
