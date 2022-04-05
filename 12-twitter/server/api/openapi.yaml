@@ -1,0 +1,300 @@
+openapi: 3.0.0
+info:
+  description: This is EDC-Twitter API service.
+  version: 1.0.0
+  title: EDC-Dwitter - Dream Coding Nodejs Test Project
+  contact:
+    email: chanhwan.chang@gmail.com
+servers:
+  - url: "http://localhost:8080"
+tags:
+  - name: auth
+    description: Methods to handle authentication
+  - name: tweets
+    description: Methods to access and manage tweets
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - auth
+      summary: Signs up a user to the EDC-Twitter service
+      description: Creates a user account for the given user details
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthSucceedResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorApiResponse"
+        "409":
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthExistingUserResponse"
+  /auth/signin:
+    post:
+      tags:
+        - auth
+      summary: Signs in a user to the EDC-Twitter service
+      description: Logs in a user and provides a valid token
+      operationId: signin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLogin"
+        required: true
+      responses:
+        "200":
+          description: Login Succeed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthSucceedResponse"
+        "401":
+          description: Login Failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthFailedResponse"
+  /auth/logout:
+    post:
+      tags:
+        - auth
+      summary: Logout a user on the EDC-Twitter service
+      description: Logs out a user
+      operationId: logout
+      responses:
+        "200":
+          description: Logout Succeed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthLogoutResponse"
+  /auth/me:
+    get:
+      tags:
+        - auth
+      summary: Check user login status on the EDC-Twitter service
+      description: Check if user has valid token
+      operationId: me
+      responses:
+        "200":
+          description: Valid User
+          content:
+            applicaion/json:
+              schema:
+                $ref: "#/components/schemas/AuthValidTokenResponse"
+        "401":
+          description: Login Failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthFailedTokenResponse"
+
+  /tweets:
+    get:
+      tags:
+        - tweets:
+      summary: Get all tweets optionally filtered by author
+      description: >
+        Fetches a list of tweets. If username is provided, the list contains
+        only tweets by the given user.
+      operationId: getTweets
+      parameters:
+        - name: username
+          in: query
+          description: Username value to filter the results
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TweetsApiResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorApiResponse"
+      security:
+        - jwt_auth: []
+
+components:
+  schemas:
+    UserRegistration:
+      type: object
+      title: User registration details
+      properties:
+        username:
+          type: string
+          minLength: 5
+        password:
+          type: string
+          minLength: 5
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        url:
+          type: string
+          format: url
+      required:
+        - username
+        - password
+        - email
+        - name
+      example:
+        username: johndoe
+        password: password
+        name: John Doe
+        email: john.doe@gmail.com
+        url: "https://awesomepics.com/878y766"
+    UserLogin:
+      type: object
+      title: User login details
+      properties:
+        username:
+          type: string
+          minLength: 5
+        password:
+          type: string
+          minLength: 5
+      required:
+        - username
+        - password
+      example:
+        username: johndoe
+        password: password
+    Tweet:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        text:
+          type: string
+          minLength: 3
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation date
+          example: "2021-01-30T08:30:20.000Z"
+        username:
+          type: string
+        name:
+          type: string
+        userId:
+          type: integer
+          format: int64
+        url:
+          type: string
+          format: url
+          nullable: true
+      required:
+        - id
+        - text
+        - createdAt
+        - username
+        - name
+        - userId
+        - url
+      example:
+        id: 42
+        text: Best tweet ever
+        createdAt: "2021-01-30T08:30:20.000Z"
+        userId: 1
+        name: John Doe
+        username: johndoe
+        url: null
+    AuthExistingUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+      example:
+        message: "johndoe already exists"
+    AuthSucceedResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        username:
+          type: string
+      required:
+        - token
+        - username
+      example:
+        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        username: johndoe
+    AuthFailedResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: "Invalid user or password"
+    AuthValidTokenResponse:
+      type: object:
+      properties:
+        username:
+          type: string
+      required:
+        - username
+      example:
+        username: johndoe
+    AuthFailedTokenResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: "Authentication Error"
+    AuthLogoutResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+      example:
+        message: "User has been logged out"
+    ErrorApiResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+      example:
+        message: "Something went wrong 🤪"
+    TweetsApiResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/Tweet"
+  securitySchemes:
+    jwt_auth:
+      description: Bearer token authorization with JWT
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
