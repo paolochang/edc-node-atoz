@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This is EDC-Twitter API service.
   version: 1.0.0
-  title: EDC-Dwitter - Dream Coding Nodejs Test Project
+  title: EDC-Twitter from Dream Coding Academy Nodejs Project
   contact:
     email: chanhwan.chang@gmail.com
 servers:
