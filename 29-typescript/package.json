@@ -9,6 +9,7 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
+    "start": "concurrently \"tsc -w\" \"nodemon dist/main\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
